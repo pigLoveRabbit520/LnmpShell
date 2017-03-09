@@ -1,5 +1,5 @@
 # SalamanderLNMP
-Linux 上php mysql nginx集成bash脚本[下载](http://pan.baidu.com/s/1pLRl1sZ)
+Linux 上php mysql nginx集成bash脚本[下载](http://pan.baidu.com/s/1skDuys9)
 
 
 
