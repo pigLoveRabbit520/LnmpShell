@@ -108,5 +108,7 @@ cd ./php-7.0.16
 --disable-fileinfo \
 --enable-maintainer-zts
 
+make 
+make install
 
 echo 'PHP installed successfully!'
