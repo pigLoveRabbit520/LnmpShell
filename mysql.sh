@@ -117,6 +117,9 @@ EOF
 cd ${MYSQL_DIR}  
 scripts/mysql_install_db --user=mysql --datadir=${MYSQL_DARA_DIR}  
 
+# add service
+cp support-files/mysql.server /etc/init.d/mysql
+
 
 
 
