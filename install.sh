@@ -6,6 +6,13 @@
 set -e # "Exit immediately if a simple command exits with a non-zero status."
 basepath=$(cd `dirname $0`; pwd)
 
+# Check if user is root
+if [ $(id -u) != "0" ]; then
+    echo "Error: You must be root to run this script, please use root to install lnmp"
+    exit 1
+fi
+
+
 # 1. nginx安装
 
 yum install -y gcc gcc-c++
