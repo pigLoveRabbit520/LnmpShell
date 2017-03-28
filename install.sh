@@ -38,6 +38,8 @@ echo 'Nginx installed successfully!'
 yum -y install libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel
 
 
+cd $basepath
+
 # 安装libmcrypt库
 
 tar zxvf libmcrypt-2.5.8.tar.gz
