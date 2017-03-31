@@ -78,8 +78,8 @@ cd ./php-7.0.16
 
 
 ./configure \
- --prefix=/usr/local/php7 \
- --with-config-file-path=/usr/local/php7/etc \
+--prefix=/usr/local/php7 \
+--with-config-file-path=/usr/local/php7/etc \
 --enable-fpm \
 --with-fpm-user=www \
 --with-fpm-group=www \
@@ -89,7 +89,7 @@ cd ./php-7.0.16
 --with-iconv-dir \
 --with-freetype-dir \
 --with-jpeg-dir \
- --with-png-dir \
+--with-png-dir \
 --with-zlib \
 --with-libxml-dir=/usr \
 --enable-xml \
@@ -108,7 +108,7 @@ cd ./php-7.0.16
 --with-openssl \
 --with-mhash \
 --enable-pcntl \
- --enable-sockets \
+--enable-sockets \
 --with-xmlrpc \
 --enable-zip \
 --enable-soap \
@@ -119,5 +119,8 @@ cd ./php-7.0.16
 
 make 
 make install
+
+# create a link to php
+ln -s /usr/local/php7/bin/php /usr/local/bin/
 
 echo 'PHP installed successfully!'
