@@ -1,4 +1,6 @@
-wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz   
+#!/bin/sh
+
+wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz
 tar -xzvf cmake-2.8.10.2.tar.gz   
 cd cmake-2.8.10.2
 ./bootstrap
