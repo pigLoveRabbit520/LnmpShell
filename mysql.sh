@@ -3,7 +3,7 @@
 set -e # "Exit immediately if a simple command exits with a non-zero status."
 basepath=$(cd `dirname $0`; pwd)
 
-yum install -y gcc gcc-c++ ncurses-devel perl  bison
+yum install -y gcc gcc-c++ ncurses-devel perl  bison perl
 
 wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz
 tar -xzvf cmake-2.8.10.2.tar.gz   
@@ -40,7 +40,7 @@ socket      = /tmp/mysql.sock
 [mysqld]
 port        = 3306
 socket      = /tmp/mysql.sock
-datadir = ${MYSQL_DIR}
+datadir = ${MYSQL_DARA_DIR}
 skip-external-locking
 key_buffer_size = 16M
 max_allowed_packet = 1M
