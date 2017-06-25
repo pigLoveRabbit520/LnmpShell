@@ -1,5 +1,10 @@
 #!/bin/sh
 
+set -e # "Exit immediately if a simple command exits with a non-zero status."
+basepath=$(cd `dirname $0`; pwd)
+
+yum install -y gcc gcc-c++ ncurses-devel perl  bison
+
 wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz
 tar -xzvf cmake-2.8.10.2.tar.gz   
 cd cmake-2.8.10.2
@@ -15,7 +20,7 @@ MYSQL_DARA_DIR="/usr/local/mysql/data"
 
 mkdir -p  ${MYSQL_DIR}
 
-
+cd $basepath
 tar -zxvf mysql-5.6.29.tar.gz && cd mysql-5.6.29
 
 cmake -DCMAKE_INSTALL_PREFIX=${MYSQL_DIR} -DSYSCONFDIR=/etc -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DWITH_FEDERATED_STORAGE_ENGINE=1 -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8mb4 -DDEFAULT_COLLATION=utf8mb4_general_ci -DWITH_EMBEDDED_SERVER=1 -DENABLED_LOCAL_INFILE=1
