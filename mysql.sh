@@ -2,8 +2,12 @@
 
 set -e # "Exit immediately if a simple command exits with a non-zero status."
 basepath=$(cd `dirname $0`; pwd)
+MYSQL_DIR="/usr/local/mysql"
+MYSQL_DARA_DIR="/usr/local/mysql/data"
 
-yum install -y gcc gcc-c++ ncurses-devel perl  bison perl
+
+
+yum install -y gcc gcc-c++ ncurses-devel  bison perl autoconf
 
 wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz
 tar -xzvf cmake-2.8.10.2.tar.gz   
@@ -14,9 +18,6 @@ make && make install
 
 groupadd mysql
 useradd -s /sbin/nologin -M -g mysql mysql
-
-MYSQL_DIR="/usr/local/mysql"
-MYSQL_DARA_DIR="/usr/local/mysql/data"
 
 mkdir -p  ${MYSQL_DIR}
 
@@ -124,8 +125,17 @@ EOF
 cd ${MYSQL_DIR}  
 scripts/mysql_install_db --user=mysql --datadir=${MYSQL_DARA_DIR}  
 
+
 # add service
 cp support-files/mysql.server /etc/init.d/mysql
+chkconfig --add mysql
+
+# add link
+ln -s ${MYSQL_DIR}/bin/mysql /usr/local/bin/
+
+
+# start service
+service start mysql
 
 
 
