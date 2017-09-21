@@ -123,6 +123,7 @@ make install
 # create a link to php
 ln -s /usr/local/php7/bin/php /usr/local/bin/
 
+# write php-fpm configure
 cat > /usr/local/php7/etc/php-fpm.conf <<EOF
 [global]
 pid = /usr/local/php/var/run/php-fpm.pid
