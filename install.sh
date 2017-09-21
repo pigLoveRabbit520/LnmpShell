@@ -123,4 +123,30 @@ make install
 # create a link to php
 ln -s /usr/local/php7/bin/php /usr/local/bin/
 
+cat > /usr/local/php7/etc/php-fpm.conf <<EOF
+[global]
+pid = /usr/local/php/var/run/php-fpm.pid
+error_log = /usr/local/php/var/log/php-fpm.log
+log_level = notice
+
+[www]
+listen = /tmp/php-cgi.sock
+listen.backlog = -1
+listen.allowed_clients = 127.0.0.1
+listen.owner = www
+listen.group = www
+listen.mode = 0666
+user = www
+group = www
+pm = dynamic
+pm.max_children = 60
+pm.start_servers = 30
+pm.min_spare_servers = 30
+pm.max_spare_servers = 60
+request_terminate_timeout = 100
+request_slowlog_timeout = 0
+slowlog = var/log/slow.log
+
+EOF
+
 echo 'PHP installed successfully!'
