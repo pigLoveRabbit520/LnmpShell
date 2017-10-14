@@ -35,7 +35,7 @@ echo 'Nginx installed successfully!'
 
 
 # 2. php安装
-yum -y install libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel
+yum -y install libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
 
 
 cd $basepath
