@@ -5,6 +5,39 @@
 
 set -e # "Exit immediately if a simple command exits with a non-zero status."
 basepath=$(cd `dirname $0`; pwd)
+DISTRO=''
+PM=''
+nginx_version='1.10.1'
+php_version='7.0.16'
+
+Get_Dist_Name()
+{
+    if grep -Eqii "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
+        DISTRO='CentOS'
+        PM='yum'
+    elif grep -Eqi "Red Hat Enterprise Linux Server" /etc/issue || grep -Eq "Red Hat Enterprise Linux Server" /etc/*-release; then
+        DISTRO='RHEL'
+        PM='yum'
+    elif grep -Eqi "Aliyun" /etc/issue || grep -Eq "Aliyun" /etc/*-release; then
+        DISTRO='Aliyun'
+        PM='yum'
+    elif grep -Eqi "Fedora" /etc/issue || grep -Eq "Fedora" /etc/*-release; then
+        DISTRO='Fedora'
+        PM='yum'
+    elif grep -Eqi "Debian" /etc/issue || grep -Eq "Debian" /etc/*-release; then
+        DISTRO='Debian'
+        PM='apt'
+    elif grep -Eqi "Ubuntu" /etc/issue || grep -Eq "Ubuntu" /etc/*-release; then
+        DISTRO='Ubuntu'
+        PM='apt'
+    elif grep -Eqi "Raspbian" /etc/issue || grep -Eq "Raspbian" /etc/*-release; then
+        DISTRO='Raspbian'
+        PM='apt'
+    else
+        DISTRO='unknow'
+    fi
+    echo "Your Linux Distribution is ${DISTRO}";
+}
 
 # Check if user is root
 if [ $(id -u) != "0" ]; then
@@ -12,21 +45,29 @@ if [ $(id -u) != "0" ]; then
     exit 1
 fi
 
+Get_Dist_Name
+
+if [[ $DISTRO == 'CentOS' || $DISTRO == 'RHEL' || $DISTRO == 'Fedora' ]]; then
+    yum install -y gcc gcc-c++
+    yum install -y libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
+elif [[ $DISTRO == 'Debian' || $DISTRO == 'Ubuntu' ]]; then
+    apt-get install -y gcc g++ openssl libssl-dev  libcurl4-openssl-dev \
+    libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev default-libmysqlclient-dev
+fi
+
+
 
 # 1. nginx安装
-
-yum install -y gcc gcc-c++
-
-tar -zxf nginx-1.10.1.tar.gz 
+wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+tar -zxvf nginx-${nginx_version}.tar.gz 
 tar -zxf pcre-8.38.tar.gz
 tar -zxf zlib-1.2.11.tar.gz
-tar -zxf openssl-1.1.0e.tar.gz
-
 
 
 # nginx安装 注意 --with-pcre=  --with-zlib --with-openssl  指的是源码路径
-cd ./nginx-1.10.1
-./configure --prefix=/usr/local/nginx-1.10.1 --with-pcre=./../pcre-8.38  --with-zlib=./../zlib-1.2.11  --with-openssl=./../openssl-1.1.0e
+cd ./nginx-${nginx_version}
+./configure --prefix=/usr/local/nginx-${nginx_version} --with-pcre=./../pcre-8.38  --with-zlib=./../zlib-1.2.11 --with-http_stub_status_module \
+--with-http_ssl_module
 make
 make install
 
@@ -34,10 +75,7 @@ make install
 echo 'Nginx installed successfully!'
 
 
-# 2. php安装
-yum -y install libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
-
-
+# 2. php安装 php 7.1以下支持mcrypt
 cd $basepath
 
 # 安装libmcrypt库
@@ -73,8 +111,8 @@ make install
 
 cd $basepath
 
-tar -zxvf php-7.0.16.tar.gz
-cd ./php-7.0.16
+tar -zxvf php-${php_version}.tar.gz
+cd ./php-${php_version}
 
 
 ./configure \
