@@ -7,8 +7,10 @@ set -e # "Exit immediately if a simple command exits with a non-zero status."
 basepath=$(cd `dirname $0`; pwd)
 DISTRO=''
 PM=''
-nginx_version='1.10.1'
+nginx_version='1.10.3'
 php_version='7.0.16'
+pcre_version='8.38'
+zlib_version='1.2.11'
 
 Get_Dist_Name()
 {
@@ -59,14 +61,16 @@ fi
 
 # 1. nginx安装
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+wget https://svwh.dl.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.tar.gz
+wget https://versaweb.dl.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz
 tar -zxvf nginx-${nginx_version}.tar.gz 
-tar -zxf pcre-8.38.tar.gz
-tar -zxf zlib-1.2.11.tar.gz
+tar -zxf pcre-${pcre_version}.tar.gz
+tar -zxf zlib-${zlib_version}.tar.gz
 
 
 # nginx安装 注意 --with-pcre=  --with-zlib --with-openssl  指的是源码路径
 cd ./nginx-${nginx_version}
-./configure --prefix=/usr/local/nginx-${nginx_version} --with-pcre=./../pcre-8.38  --with-zlib=./../zlib-1.2.11 --with-http_stub_status_module \
+./configure --prefix=/usr/local/nginx-${nginx_version} --with-pcre=./../pcre-${pcre_version}  --with-zlib=./../zlib-${zlib_version} --with-http_stub_status_module \
 --with-http_ssl_module
 make
 make install
