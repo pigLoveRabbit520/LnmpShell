@@ -11,6 +11,9 @@ nginx_version='1.10.3'
 php_version='7.0.16'
 pcre_version='8.38'
 zlib_version='1.2.11'
+libmcrypt_version='2.5.8'
+mhash_version='0.9.9.9'
+mcrypt_version='2.6.8'
 
 Get_Dist_Name()
 {
@@ -62,7 +65,7 @@ fi
 # 1. nginx安装
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
 wget https://svwh.dl.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.tar.gz
-wget https://versaweb.dl.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz
+wget https://versaweb.dl.sourceforge.net/project/libpng/zlib/${zlib_version}/zlib-${zlib_version}.tar.gz
 tar -zxvf nginx-${nginx_version}.tar.gz 
 tar -zxf pcre-${pcre_version}.tar.gz
 tar -zxf zlib-${zlib_version}.tar.gz
@@ -83,9 +86,9 @@ echo 'Nginx installed successfully!'
 cd $basepath
 
 # 安装libmcrypt库
-
-tar zxvf libmcrypt-2.5.8.tar.gz
-cd libmcrypt-2.5.8
+wget https://cfhcable.dl.sourceforge.net/project/mcrypt/Libmcrypt/${libmcrypt_version}/libmcrypt-${libmcrypt_version}.tar.gz
+tar zxvf libmcrypt-${libmcrypt_version}.tar.gz
+cd libmcrypt-${libmcrypt_version}
 ./configure
 make
 make install
@@ -93,9 +96,9 @@ make install
 cd $basepath
 
 # 安装mhash库
-
-tar zxvf mhash-0.9.9.9.tar.gz
-cd mhash-0.9.9.9
+wget https://versaweb.dl.sourceforge.net/project/mhash/mhash/${mhash_version}/mhash-${mhash_version}.tar.gz
+tar zxvf mhash-${mhash_version}.tar.gz
+cd mhash-${mhash_version}
 ./configure
 make
 make install
@@ -103,9 +106,9 @@ make install
 cd $basepath
 
 # 安装mcrypt库
-
-tar -zxvf mcrypt-2.6.8.tar.gz
-cd mcrypt-2.6.8
+wget https://astuteinternet.dl.sourceforge.net/project/mcrypt/MCrypt/${mcrypt_version}/mcrypt-${mcrypt_version}.tar.gz
+tar -zxvf mcrypt-${mcrypt_version}.tar.gz
+cd mcrypt-${mcrypt_version}
 export LD_LIBRARY_PATH=/usr/local/lib
 ./configure
 make
