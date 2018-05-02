@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # linux上nginx，php，mysql集成环境
 # Author salamander
