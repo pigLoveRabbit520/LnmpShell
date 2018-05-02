@@ -65,7 +65,7 @@ fi
 # 1. nginx安装
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
 wget https://svwh.dl.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.tar.gz
-wget https://versaweb.dl.sourceforge.net/project/libpng/zlib/${zlib_version}/zlib-${zlib_version}.tar.gz
+wget https://zlib.net/zlib-${zlib_version}.tar.gz
 tar -zxvf nginx-${nginx_version}.tar.gz 
 tar -zxf pcre-${pcre_version}.tar.gz
 tar -zxf zlib-${zlib_version}.tar.gz
