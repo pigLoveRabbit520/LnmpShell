@@ -7,7 +7,7 @@ set -e # "Exit immediately if a simple command exits with a non-zero status."
 basepath=$(cd `dirname $0`; pwd)
 DISTRO=''
 PM=''
-nginx_version='1.10.3'
+nginx_version='1.12.2'
 php_version='7.1.16'
 pcre_version='8.38'
 zlib_version='1.2.11'
