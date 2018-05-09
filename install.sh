@@ -56,7 +56,7 @@ if [[ $DISTRO == 'CentOS' || $DISTRO == 'RHEL' || $DISTRO == 'Fedora' ]]; then
     yum install -y gcc gcc-c++
     yum install -y libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
 elif [[ $DISTRO == 'Debian' || $DISTRO == 'Ubuntu' ]]; then
-    apt-get install -y gcc g++ openssl libssl-dev  libcurl4-openssl-dev \
+    apt-get install -y gcc g++ make openssl pkg-config libssl-dev  libcurl4-openssl-dev \
     libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev default-libmysqlclient-dev
 fi
 
