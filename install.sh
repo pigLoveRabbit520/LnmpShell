@@ -94,7 +94,7 @@ install_php()
     cd $basepath
 
     # 安装mhash库
-    wget https://versaweb.dl.sourceforge.net/project/mhash/mhash/${mhash_version}/mhash-${mhash_version}.tar.gz
+    wget http://ongd1spyv.bkt.clouddn.com/mhash-${mhash_version}.tar.gz
     tar zxvf mhash-${mhash_version}.tar.gz
     cd mhash-${mhash_version}
     ./configure
