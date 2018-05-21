@@ -18,7 +18,7 @@ chmod a+x install.sh
 2. `install_dependencies`安装软件依赖
 3. `install_nginx`安装nginx
 4. `install_php`安装php
-
+5. Ubuntu和Debian的mysqlclient-dev库名不一样，前者为libmysqlclient-dev，后者为default-libmysqlclient-dev
 
 # 联系
 我的[博客](http://51nazi.com/ "nazi")
