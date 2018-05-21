@@ -80,38 +80,40 @@ install_nginx()
 
 install_php()
 {
-    # 2. php安装 php 7.1以下支持mcrypt
-    cd $basepath
 
-    # 安装libmcrypt库
-    wget https://cfhcable.dl.sourceforge.net/project/mcrypt/Libmcrypt/${libmcrypt_version}/libmcrypt-${libmcrypt_version}.tar.gz
-    tar zxvf libmcrypt-${libmcrypt_version}.tar.gz
-    cd libmcrypt-${libmcrypt_version}
-    ./configure
-    make
-    make install
+    if [[ $php_version_choose -lt 2 ]]; then
+        # php安装 php 7.1以下支持mcrypt
+        cd $basepath
 
-    cd $basepath
+        # 安装libmcrypt库
+        wget https://cfhcable.dl.sourceforge.net/project/mcrypt/Libmcrypt/${libmcrypt_version}/libmcrypt-${libmcrypt_version}.tar.gz
+        tar zxvf libmcrypt-${libmcrypt_version}.tar.gz
+        cd libmcrypt-${libmcrypt_version}
+        ./configure
+        make
+        make install
 
-    # 安装mhash库
-    wget http://ongd1spyv.bkt.clouddn.com/mhash-${mhash_version}.tar.gz
-    tar zxvf mhash-${mhash_version}.tar.gz
-    cd mhash-${mhash_version}
-    ./configure
-    make
-    make install
+        cd $basepath
 
-    cd $basepath
+        # 安装mhash库
+        wget http://ongd1spyv.bkt.clouddn.com/mhash-${mhash_version}.tar.gz
+        tar zxvf mhash-${mhash_version}.tar.gz
+        cd mhash-${mhash_version}
+        ./configure
+        make
+        make install
 
-    # 安装mcrypt库
-    wget https://astuteinternet.dl.sourceforge.net/project/mcrypt/MCrypt/${mcrypt_version}/mcrypt-${mcrypt_version}.tar.gz
-    tar -zxvf mcrypt-${mcrypt_version}.tar.gz
-    cd mcrypt-${mcrypt_version}
-    export LD_LIBRARY_PATH=/usr/local/lib
-    ./configure
-    make
-    make install
+        cd $basepath
 
+        # 安装mcrypt库
+        wget https://astuteinternet.dl.sourceforge.net/project/mcrypt/MCrypt/${mcrypt_version}/mcrypt-${mcrypt_version}.tar.gz
+        tar -zxvf mcrypt-${mcrypt_version}.tar.gz
+        cd mcrypt-${mcrypt_version}
+        export LD_LIBRARY_PATH=/usr/local/lib
+        ./configure
+        make
+        make install
+    fi
 
 
     cd $basepath
@@ -119,55 +121,96 @@ install_php()
     tar -zxvf php-${php_version}.tar.gz
     cd ./php-${php_version}
 
-
-    ./configure \
-    --prefix=/usr/local/php7 \
-    --with-config-file-path=/usr/local/php7/etc \
-    --enable-fpm \
-    --with-fpm-user=www \
-    --with-fpm-group=www \
-    --with-mysqli \
-    --with-pdo-mysql \
-    --with-libdir=lib64 \
-    --with-iconv-dir \
-    --with-freetype-dir \
-    --with-jpeg-dir \
-    --with-png-dir \
-    --with-zlib \
-    --with-libxml-dir=/usr \
-    --enable-xml \
-    --disable-rpath  \
-    --enable-bcmath \
-    --enable-shmop \
-    --enable-sysvsem \
-    --enable-inline-optimization \
-    --with-curl \
-    --enable-mbregex \
-    --enable-mbstring \
-    --with-mcrypt \
-    --enable-ftp \
-    --with-gd \
-    --enable-gd-native-ttf \
-    --with-openssl \
-    --with-mhash \
-    --enable-pcntl \
-    --enable-sockets \
-    --with-xmlrpc \
-    --enable-zip \
-    --enable-soap \
-    --without-pear \
-    --with-gettext \
-    --disable-fileinfo \
-    --enable-maintainer-zts
+    if [[ $php_version_choose -lt 2 ]]; then
+        ./configure \
+        --prefix=/usr/local/php-${php_version} \
+        --with-config-file-path=/usr/local/php-${php_version}/etc \
+        --enable-fpm \
+        --with-fpm-user=www \
+        --with-fpm-group=www \
+        --with-mysqli \
+        --with-pdo-mysql \
+        --with-libdir=lib64 \
+        --with-iconv-dir \
+        --with-freetype-dir \
+        --with-jpeg-dir \
+        --with-png-dir \
+        --with-zlib \
+        --with-libxml-dir=/usr \
+        --enable-xml \
+        --disable-rpath  \
+        --enable-bcmath \
+        --enable-shmop \
+        --enable-sysvsem \
+        --enable-inline-optimization \
+        --with-curl \
+        --enable-mbregex \
+        --enable-mbstring \
+        --with-mcrypt \
+        --enable-ftp \
+        --with-gd \
+        --enable-gd-native-ttf \
+        --with-openssl \
+        --with-mhash \
+        --enable-pcntl \
+        --enable-sockets \
+        --with-xmlrpc \
+        --enable-zip \
+        --enable-soap \
+        --without-pear \
+        --with-gettext \
+        --disable-fileinfo \
+        --enable-maintainer-zts
+    else
+        # php 7.2
+        ./configure \
+        --prefix=/usr/local/php-${php_version} \
+        --with-config-file-path=/usr/local/php-${php_version}/etc \
+        --enable-fpm \
+        --with-fpm-user=www \
+        --with-fpm-group=www \
+        --with-mysqli \
+        --with-pdo-mysql \
+        --with-libdir=lib64 \
+        --with-iconv-dir \
+        --with-freetype-dir \
+        --with-jpeg-dir \
+        --with-png-dir \
+        --with-zlib \
+        --with-libxml-dir=/usr \
+        --enable-xml \
+        --disable-rpath  \
+        --enable-bcmath \
+        --enable-shmop \
+        --enable-sysvsem \
+        --enable-inline-optimization \
+        --with-curl \
+        --enable-mbregex \
+        --enable-mbstring \
+        --enable-ftp \
+        --with-gd \
+        --enable-gd-native-ttf \
+        --with-openssl \
+        --with-mhash \
+        --enable-pcntl \
+        --enable-sockets \
+        --with-xmlrpc \
+        --enable-zip \
+        --enable-soap \
+        --without-pear \
+        --with-gettext \
+        --disable-fileinfo \
+        --enable-maintainer-zts
+    fi
 
     make 
     make install
 
     # create a link to php
-    ln -s /usr/local/php7/bin/php /usr/local/bin/
+    ln -sf /usr/local/php-${php_version}/bin/php /usr/local/bin/
 
     # write php-fpm configure
-    cat > /usr/local/php7/etc/php-fpm.conf <<EOF
+    cat > /usr/local/php-${php_version}/etc/php-fpm.conf <<EOF
 [global]
 pid = /usr/local/php/var/run/php-fpm.pid
 error_log = /usr/local/php/var/log/php-fpm.log
@@ -206,6 +249,17 @@ fi
 Get_Dist_Name
 echo -e "Which do you want to install?\n1. nginx\n2. php\n3. nginx and php"
 read choose
+# 如果选择安装PHP，则提示要安装的PHP版本
+if [[ $choose -gt 1 && $choose -lt 4 ]]; then
+    echo -e "Which php version you want to install?\n1. php7.1以下\n2. php7.2以上"
+    read php_version_choose
+
+    if [[ $php_version_choose != 1 || $php_version_choose != 2 ]]; then
+        echo "please select the php version"
+        exit 2
+    fi
+fi
+
 if [[ $choose = '1' ]]; then
     install_dependencies
     install_nginx
