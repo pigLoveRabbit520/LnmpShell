@@ -51,7 +51,13 @@ install_dependencies()
         yum install -y libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
     elif [[ $DISTRO == 'Debian' || $DISTRO == 'Ubuntu' ]]; then
         apt-get install -y gcc g++ make openssl pkg-config libssl-dev  libcurl4-openssl-dev \
-        libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev default-libmysqlclient-dev
+        libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev
+        # Ubuntu和Debian不一样
+        if [[ $DISTRO == 'Ubuntu' ]]; then
+            apt-get install -y libmysqlclient-dev
+        else
+            apt-get install -y default-libmysqlclient-dev       
+        fi
     fi
 }
 
@@ -216,7 +222,7 @@ if [[ $choose -gt 1 && $choose -lt 4 ]]; then
     echo -e "Which php version you want to install?\n1. php7.1以下\n2. php7.2以上"
     read php_version_choose
 
-    if [[ $php_version_choose != 1 || $php_version_choose != 2 ]]; then
+    if [[ $php_version_choose != 1 && $php_version_choose != 2 ]]; then
         echo "please select the php version"
         exit 2
     fi
