@@ -115,94 +115,56 @@ install_php()
         make install
     fi
 
+    local configure_str=$(cat <<EOF
+./configure \
+            --prefix=/usr/local/php-${php_version} \
+            --with-config-file-path=/usr/local/php-${php_version}/etc \
+            --enable-fpm \
+            --with-fpm-user=www \
+            --with-fpm-group=www \
+            --with-mysqli \
+            --with-pdo-mysql \
+            --with-libdir=lib64 \
+            --with-iconv-dir \
+            --with-freetype-dir \
+            --with-jpeg-dir \
+            --with-png-dir \
+            --with-zlib \
+            --with-libxml-dir=/usr \
+            --enable-xml \
+            --disable-rpath  \
+            --enable-bcmath \
+            --enable-shmop \
+            --enable-sysvsem \
+            --enable-inline-optimization \
+            --with-curl \
+            --enable-mbregex \
+            --enable-mbstring \
+            --enable-ftp \
+            --with-gd \
+            --enable-gd-native-ttf \
+            --with-openssl \
+            --with-mhash \
+            --enable-pcntl \
+            --enable-sockets \
+            --with-xmlrpc \
+            --enable-zip \
+            --enable-soap \
+            --without-pear \
+            --with-gettext \
+            --disable-fileinfo \
+            --enable-maintainer-zts
+EOF
+)
+    if [[ $php_version_choose -lt 2 ]]; then
+        configure_str="${configure_str}  --with-mcrypt"
+    fi
 
     cd $basepath
 
     tar -zxvf php-${php_version}.tar.gz
     cd ./php-${php_version}
-
-    if [[ $php_version_choose -lt 2 ]]; then
-        ./configure \
-        --prefix=/usr/local/php-${php_version} \
-        --with-config-file-path=/usr/local/php-${php_version}/etc \
-        --enable-fpm \
-        --with-fpm-user=www \
-        --with-fpm-group=www \
-        --with-mysqli \
-        --with-pdo-mysql \
-        --with-libdir=lib64 \
-        --with-iconv-dir \
-        --with-freetype-dir \
-        --with-jpeg-dir \
-        --with-png-dir \
-        --with-zlib \
-        --with-libxml-dir=/usr \
-        --enable-xml \
-        --disable-rpath  \
-        --enable-bcmath \
-        --enable-shmop \
-        --enable-sysvsem \
-        --enable-inline-optimization \
-        --with-curl \
-        --enable-mbregex \
-        --enable-mbstring \
-        --with-mcrypt \
-        --enable-ftp \
-        --with-gd \
-        --enable-gd-native-ttf \
-        --with-openssl \
-        --with-mhash \
-        --enable-pcntl \
-        --enable-sockets \
-        --with-xmlrpc \
-        --enable-zip \
-        --enable-soap \
-        --without-pear \
-        --with-gettext \
-        --disable-fileinfo \
-        --enable-maintainer-zts
-    else
-        # php 7.2
-        ./configure \
-        --prefix=/usr/local/php-${php_version} \
-        --with-config-file-path=/usr/local/php-${php_version}/etc \
-        --enable-fpm \
-        --with-fpm-user=www \
-        --with-fpm-group=www \
-        --with-mysqli \
-        --with-pdo-mysql \
-        --with-libdir=lib64 \
-        --with-iconv-dir \
-        --with-freetype-dir \
-        --with-jpeg-dir \
-        --with-png-dir \
-        --with-zlib \
-        --with-libxml-dir=/usr \
-        --enable-xml \
-        --disable-rpath  \
-        --enable-bcmath \
-        --enable-shmop \
-        --enable-sysvsem \
-        --enable-inline-optimization \
-        --with-curl \
-        --enable-mbregex \
-        --enable-mbstring \
-        --enable-ftp \
-        --with-gd \
-        --enable-gd-native-ttf \
-        --with-openssl \
-        --with-mhash \
-        --enable-pcntl \
-        --enable-sockets \
-        --with-xmlrpc \
-        --enable-zip \
-        --enable-soap \
-        --without-pear \
-        --with-gettext \
-        --disable-fileinfo \
-        --enable-maintainer-zts
-    fi
-
+    $configure_str
     make 
     make install
 
