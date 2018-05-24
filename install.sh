@@ -51,7 +51,7 @@ install_dependencies()
         yum install -y libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
     elif [[ $DISTRO == 'Debian' || $DISTRO == 'Ubuntu' ]]; then
         apt-get install -y gcc g++ make openssl pkg-config libssl-dev  libcurl4-openssl-dev \
-        libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev libmcrypt4
+        libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev
         # Ubuntu和Debian不一样
         if [[ $DISTRO == 'Ubuntu' ]]; then
             apt-get install -y libmysqlclient-dev
@@ -86,41 +86,6 @@ install_nginx()
 
 install_php()
 {
-
-    if [[ $php_version_choose -lt 2 ]]; then
-        # php安装 php 7.1以下支持mcrypt
-        cd $basepath
-
-        # 安装libmcrypt库
-        wget https://cfhcable.dl.sourceforge.net/project/mcrypt/Libmcrypt/${libmcrypt_version}/libmcrypt-${libmcrypt_version}.tar.gz
-        tar zxvf libmcrypt-${libmcrypt_version}.tar.gz
-        cd libmcrypt-${libmcrypt_version}
-        ./configure
-        make
-        make install
-
-        cd $basepath
-
-        # 安装mhash库
-        wget http://ongd1spyv.bkt.clouddn.com/mhash-${mhash_version}.tar.gz
-        tar zxvf mhash-${mhash_version}.tar.gz
-        cd mhash-${mhash_version}
-        ./configure
-        make
-        make install
-
-        cd $basepath
-
-        # 安装mcrypt库
-        wget https://astuteinternet.dl.sourceforge.net/project/mcrypt/MCrypt/${mcrypt_version}/mcrypt-${mcrypt_version}.tar.gz
-        tar -zxvf mcrypt-${mcrypt_version}.tar.gz
-        cd mcrypt-${mcrypt_version}
-        export LD_LIBRARY_PATH=/usr/local/lib
-        ./configure
-        make
-        make install
-    fi
-
     local configure_str=$(cat <<EOF
 ./configure \
             --prefix=/usr/local/php-${php_version} \
@@ -163,10 +128,6 @@ install_php()
             --enable-maintainer-zts
 EOF
 )
-    if [[ $php_version_choose -lt 2 ]]; then
-        configure_str="${configure_str}  --with-mcrypt"
-    fi
-
     cd $basepath
 
     tar -zxvf php-${php_version}.tar.gz
@@ -218,16 +179,7 @@ fi
 Get_Dist_Name
 echo -e "Which do you want to install?\n1. nginx\n2. php\n3. nginx and php"
 read choose
-# 如果选择安装PHP，则提示要安装的PHP版本
-if [[ $choose -gt 1 && $choose -lt 4 ]]; then
-    echo -e "Which php version you want to install?\n1. php7.1以下\n2. php7.2以上"
-    read php_version_choose
 
-    if [[ $php_version_choose != 1 && $php_version_choose != 2 ]]; then
-        echo "please select the php version"
-        exit 2
-    fi
-fi
 
 if [[ $choose = '1' ]]; then
     install_dependencies
