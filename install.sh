@@ -51,7 +51,7 @@ install_dependencies()
         yum install -y libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
     elif [[ $DISTRO == 'Debian' || $DISTRO == 'Ubuntu' ]]; then
         apt-get install -y gcc g++ make openssl pkg-config libssl-dev  libcurl4-openssl-dev \
-        libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev
+        libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev libmcrypt4
         # Ubuntu和Debian不一样
         if [[ $DISTRO == 'Ubuntu' ]]; then
             apt-get install -y libmysqlclient-dev
