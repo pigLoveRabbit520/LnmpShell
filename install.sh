@@ -154,7 +154,7 @@ install_php()
             --with-mhash \
             --enable-pcntl \
             --enable-sockets \
-            –enable-opcache \
+            --enable-opcache \
             --with-xmlrpc \
             --enable-zip \
             --enable-soap \
