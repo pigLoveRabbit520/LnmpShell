@@ -11,7 +11,7 @@ chmod a+x install.sh
 * 必须以root用户运行脚本
 * `install.sh`用来安装nginx和php，`mysql.sh`用来安装mysql
 * 修改php和nginx版本的话，请修改`nginx_version`和`php_version`变量（在shell开头）
-* php7.2以上会排除安装mcrypt部分
+* mcrypt已被PHP废弃，该shell中不安装它
 
 # 代码说明
 1. `Get_Dist_Name`用来判断不同的Linux发行版
