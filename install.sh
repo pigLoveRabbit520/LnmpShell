@@ -138,7 +138,6 @@ install_php()
             --with-zlib \
             --with-libxml-dir=/usr \
             --enable-xml \
-            --enable-sockets \
             --disable-rpath  \
             --enable-bcmath \
             --enable-shmop \
