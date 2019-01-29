@@ -1,5 +1,5 @@
 # LNMP编译脚本
-Linux 上php mysql nginx集成bash脚本[下载](http://file.51nazi.com/LNMP.tar.gz)
+Linux 上php mysql nginx集成bash脚本[下载](http://file.51lucy.com/LNMP.tar.gz)
 
 # 使用
 ```
