@@ -76,7 +76,7 @@ install_nginx()
     # nginx安装 注意 --with-pcre=  --with-zlib --with-openssl  指的是源码路径
     cd ./nginx-${nginx_version}
     ./configure --prefix=/usr/local/nginx-${nginx_version} --with-pcre=./../pcre-${pcre_version}  --with-zlib=./../zlib-${zlib_version} --with-http_stub_status_module \
-    --with-http_ssl_module
+    --with-http_ssl_module  --with-stream
     make
     make install
 
