@@ -21,4 +21,4 @@ chmod a+x install.sh
 5. Ubuntu和Debian的mysqlclient-dev库名不一样，前者为libmysqlclient-dev，后者为default-libmysqlclient-dev
 
 # 联系
-我的[博客](http://51nazi.com/ "nazi")
+我的[博客](https://blog.51lucy.com/)
