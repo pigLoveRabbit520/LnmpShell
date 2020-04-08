@@ -47,9 +47,11 @@ Get_Dist_Name()
 install_dependencies()
 {
     if [[ $DISTRO == 'CentOS' || $DISTRO == 'RHEL' || $DISTRO == 'Fedora' ]]; then
+        yum check-update
         yum install -y gcc gcc-c++
         yum install -y libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel mysql-devel
     elif [[ $DISTRO == 'Debian' || $DISTRO == 'Ubuntu' ]]; then
+        apt-get update
         apt-get install -y gcc g++ make openssl pkg-config libssl-dev  libcurl4-openssl-dev \
         libxml2 libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev
         # Ubuntu和Debian不一样
@@ -124,7 +126,6 @@ install_php()
             --enable-soap \
             --without-pear \
             --with-gettext \
-            --disable-fileinfo \
             --enable-maintainer-zts
 EOF
 )
